@@ -1,0 +1,424 @@
+meta:
+  title: "Scandic Hotels — Strategic Customer Journey Framework"
+  subtitle: "Workshop Draft | Synthesised from source materials | February 2026"
+  where_to_win_theme: >
+    Consistent, recognised, personal service — guests who feel seen and valued at every
+    transition point (booking, check-in, in-stay, loyalty) are measurably more satisfied,
+    more loyal, and more likely to return. Scandic's differentiation opportunity lies in
+    making human warmth as reliable as its brand promise across all hotels, not as a happy accident.
+
+# ─── 7 JOURNEY STAGES ─────────────────────────────────────────────────────────
+stages:
+  - id: 1
+    short_label: "Dream & Discover"
+    customer_language: "I want to go somewhere"
+    complete_when: "…the guest has identified a destination or occasion and is actively considering hotel options."
+    success_statement: "The guest feels excited and is already picturing their stay — Scandic is on their consideration list."
+    key_outcomes:
+      - "Feels inspired by a Scandic property because content feels personally relevant."
+      - "Can find Scandic surfaced in the channels they naturally use (social, meta-search, OTA)."
+      - "Understands what makes Scandic different — brand communicates personality, not just room specs."
+      - "Destination and hotel presented as a complete experience, not separate decisions."
+    evidence: "Leisure guests think destination-first, hotel-second. Pain A1 ('few discover Scandic via social media and metasearch') appears across both business and leisure CJMs."
+
+  - id: 2
+    short_label: "Select & Book"
+    customer_language: "I'm choosing and booking"
+    complete_when: "…the guest has confirmed a reservation and received a booking confirmation from Scandic (direct or via OTA)."
+    success_statement: "The guest feels confident they made the right choice and knows exactly what they've booked — no surprises expected."
+    key_outcomes:
+      - "Can compare room types, prices, and hotels quickly without losing their place."
+      - "Feels certain about what they are paying for — no hidden costs or surprises."
+      - "Can customise booking with basic preferences (room attributes, add-ons) in a single flow."
+      - "Knows how to use membership number, loyalty points, or corporate discount without calling."
+      - "Booking confirmation clearly states what was booked and what happens next."
+      - "Guests who book via OTA understand the limitations and how to connect loyalty benefits."
+    evidence: "Booking has the highest correlation (0.6) to overall experience score. Pain points B1–B6, A3, A5–A8 all cluster here. WOW initiative #5 targets customisable ancillary booking."
+
+  - id: 3
+    short_label: "Prepare"
+    customer_language: "I'm getting ready"
+    complete_when: "…the guest has the practical information they need and any pre-stay communication has been received."
+    success_statement: "The guest feels prepared and looked-after — they can anticipate a smooth arrival without unanswered questions."
+    key_outcomes:
+      - "Scandic anticipates pre-arrival needs (parking, late arrival, directions) without the guest having to search."
+      - "Can easily view, change, or add to their booking online without calling the hotel."
+      - "Knows how to contact the hotel and gets a timely response."
+      - "Members can see what benefits apply to their upcoming stay."
+    evidence: "Pre-stay comms rated 4.0–4.1. Pain C1 (can't adjust booking online) is a top call-centre driver. Pain C3/C4 (slow response, hard to reach hotel) scores high in qualitative sentiment."
+
+  - id: 4
+    short_label: "Arrive & Check In"
+    customer_language: "I'm arriving and settling in"
+    complete_when: "…the guest has completed check-in, received their key, and is in their room or on their way to it."
+    success_statement: "The guest feels welcomed as an individual — not a queue number — and their first impression is positive."
+    key_outcomes:
+      - "Welcomed as an individual from the first interaction — not like they are in a queue."
+      - "Can check in without waiting more than a few minutes, through a channel of their choice."
+      - "Loyal members feel visibly recognised and receive a small, meaningful acknowledgement."
+      - "Room matches what they booked — no unpleasant first impression."
+      - "Knows key stay facts (breakfast time, WiFi, room location) without having to ask."
+      - "Guests who arrive early or late feel the hotel has a solution, not a policy statement."
+    evidence: "Arrival/check-in scored 4.4 overall, yet slow check-in (pain D1) ranks 3rd in leisure pain severity. Gain points G1–G4 (welcome note, gift, info-kit, upgrade) all activate at arrival. 'Marketplace Lobby' WOW initiative targets this moment."
+
+  - id: 5
+    short_label: "In-Stay"
+    customer_language: "I'm living the stay"
+    complete_when: "…the guest has slept at the hotel at least one night, experienced breakfast, and had some interaction with staff or facilities."
+    success_statement: "The guest feels comfortable, taken care of, and getting personal value — room, food, and service meet or exceed expectations."
+    key_outcomes:
+      - "Room is clean, quiet, and matches the standard described at booking."
+      - "Genuinely good breakfast without excessive queuing or running out of items — at least one above-average element."
+      - "Staff are visibly present, approachable, and genuinely warm — not just transactionally polite."
+      - "Can get a personalised local recommendation from staff, not a generic brochure."
+      - "Members and repeat guests feel Scandic uses what it knows about them."
+      - "Guests with specific needs (families, international guests, accessibility) feel the hotel considered them."
+    evidence: "Restaurant/food rated 3.7 (leisure) — lowest in-stay score. Gain G9 ('Surprisingly good breakfast') and G5 ('Make the customer feel seen') are highest-potential gains. WOW initiative #4 (personalised guest experience) directly targets in-stay recognition."
+
+  - id: 6
+    short_label: "Departure"
+    customer_language: "I'm leaving"
+    complete_when: "…the guest has returned their key, settled their bill, and departed the hotel."
+    success_statement: "The guest leaves with a positive final impression — the end of the stay feels as considered as the beginning."
+    key_outcomes:
+      - "Can check out quickly through a channel of their choice without queuing at reception."
+      - "Understands their bill and knows loyalty points earned are registered."
+      - "Late check-out or luggage storage is available without negotiating."
+      - "Leaves with a clear and warm final interaction that provides a natural close to the stay."
+    evidence: "Majority prefer to check out at reception despite digital options. Late check-out inflexibility is a pain across segments. Check-out scored 4.4 in leisure — highest in-stay touchpoint — suggesting a good foundation."
+
+  - id: 7
+    short_label: "Re-live & Loyalty"
+    customer_language: "I'm looking back and deciding whether to return"
+    complete_when: "…the guest has processed their stay, responded to (or ignored) post-stay communication, and formed a view on whether to recommend or return."
+    success_statement: "The guest feels the stay was worth it, remembers it positively, and — if a member — feels the loyalty programme adds real value."
+    key_outcomes:
+      - "Post-stay communication is relevant to their actual stay and worth reading — not generic spam."
+      - "Guests who had a problem feel it has been heard and followed up."
+      - "Scandic Friends members understand how to use their points and find the benefits genuinely compelling."
+      - "Guests who had a good stay can easily share their experience and leave a review."
+      - "Feels a natural reason to return — a relevant offer or a positive memory."
+    evidence: "Post-stay comms rated 3.7 (business) — the single lowest touchpoint score. Member benefits rated 3.3 for Habituals — the single lowest score in the entire journey. Pain F1: 'too much irrelevant post-stay communication'. Scandic Friends pains F3/F4 are significant churn risks."
+
+# ─── 5 HERO MOMENTS ───────────────────────────────────────────────────────────
+hero_moments:
+  - id: 1
+    title: "The Booking That Earns Trust"
+    icon: "🔐"
+    primary_stage: 2
+    adjacent_stages: [1, 3]
+    criteria_score: "5/5"
+    feasibility_note: "incremental"
+    customer_promise: >
+      The customer will complete their booking feeling confident, unstressed, and certain
+      about what they've paid for — with no need to call, verify, or second-guess.
+    customer_value:
+      - "Booking is the highest-anxiety digital touchpoint; complexity here creates a negative halo that colours the entire stay."
+      - "Ability to customise in the booking flow directly addresses the top customer demand: 'I want to feel like my stay is tailored to me.'"
+    business_value:
+      - "Booking has the highest correlation (0.6) to overall experience score; improvements here have outsized downstream effect."
+      - "Conversion rate improvement is directly measurable; significant drop-off shown especially at payment."
+    what_great_looks_like:
+      - "A guest completes a booking in under 5 minutes on mobile, selects a preference (high floor, breakfast), and receives a confirmation that clearly restates what was booked and what to expect next."
+      - "A Scandic Friends member's loyalty number, points balance, and applicable benefits are pre-filled and visible throughout the booking flow without a separate login step."
+    failure_modes:
+      - "Guests who book via OTAs (50% of international leisure guests) never experience this moment on Scandic's platform, eroding personalisation and loyalty."
+      - "Opera Cloud and IT dependencies mean customisable booking may take longer to implement than customer patience allows."
+    key_evidence:
+      - "Pain B1 (cumbersome personal detail entry) and B2 (payment drop-out) are high-frequency."
+      - "'Booking is one of the touchpoints with the greatest impact on overall experience' [Business CJM 2017 – p.22]"
+      - "WOW Initiative #5 proposes customisable ancillaries in the booking flow."
+      - "Leisure pain A3 (hard to compare/filter hotels) scored prominently in pain severity analysis."
+
+  - id: 2
+    title: "The Arrival That Sets the Tone"
+    icon: "🚪"
+    primary_stage: 4
+    adjacent_stages: [3, 5]
+    criteria_score: "5/5"
+    feasibility_note: null
+    customer_promise: >
+      The customer will walk away from check-in feeling genuinely welcomed — not processed —
+      and with a positive first physical impression of Scandic that frames everything that follows.
+    customer_value:
+      - "Arrival is the first physical moment where Scandic's brand promise either lands or fails — first impressions disproportionately shape memory of the entire stay."
+      - "Guests consistently forgive check-in queues if the waiting time is made pleasant (free coffee, genuine warmth)."
+    business_value:
+      - "Arrival/check-in scored 4.4 — high, but with clear pain points (slow check-in, inconsistent loyalty recognition, key cards) showing a gap between perception and reality."
+      - "The Marketplace Lobby WOW initiative is already resourced and in concept; hero moment framing accelerates it."
+    what_great_looks_like:
+      - "A loyal member walks in and is addressed by name within 30 seconds, without presenting ID; receives a personal acknowledgement of their loyalty ('Welcome back — this is your 12th stay with us')."
+      - "A family arrives with children after a long drive; the children receive a small surprise gift, and the parent is offered a seat and a drink while the room is prepared."
+    failure_modes:
+      - "Staff turnover and inconsistent training mean the warm welcome is delivered by some employees at some hotels but not reliably across the estate."
+      - "Digital check-in can reduce wait times but risks removing the human moment entirely if not designed as an enhancement rather than a replacement."
+    key_evidence:
+      - "Gain points G1–G4 (welcome note, surprise gift, info-kit, room upgrade) all concentrate at arrival."
+      - "WOW Initiative #3 ('The Marketplace Lobby Experience') is the most elaborated of the five."
+      - "D1 (slow check-in) ranks 3rd highest in total pain severity in leisure."
+      - "XENA persona Lennart: 'I like the personal contact.'"
+
+  - id: 3
+    title: "The Moment You Feel Seen"
+    icon: "👁️"
+    primary_stage: 5
+    adjacent_stages: [4, 7]
+    criteria_score: "5/5"
+    feasibility_note: "CRM-limited"
+    customer_promise: >
+      The customer will experience at least one interaction during their stay — from staff,
+      room personalisation, or digital service — that demonstrates Scandic knows them and has
+      made their stay easier or more enjoyable because of it.
+    customer_value:
+      - "'Make the customer feel seen — important to not feel as a can of sardines in the factory' is gain point G5, cited across all four leisure segments."
+      - "Personalisation is the top driver gap: guests whose preferences are known rate their stay significantly higher."
+    business_value:
+      - "Member benefits are the single lowest-rated touchpoint (3.3 for Habituals) — but the Habitual is Scandic's most loyal and highest-frequency guest. Closing this gap has the highest retention upside."
+      - "WOW Initiative #4 (Personalised Guest Experience via Salesforce/EasyGuest) is directly scoped to this moment."
+    what_great_looks_like:
+      - "A Top Floor member receives a proactive SMS before arrival noting their preferred room type is assigned, with a brief note about tonight's bar special."
+      - "A first-time family guest finds their children mentioned by name in the room welcome note and a small age-appropriate gift on the children's bed (not handed out mechanically at the desk)."
+    failure_modes:
+      - "CRM dependency: this hero moment is currently limited by Scandic's ability to hold and activate guest preference data across properties."
+      - "Over-personalisation or poorly executed gestures risk feeling intrusive rather than warm — the execution standard must be carefully defined before scaling."
+    key_evidence:
+      - "Pain I (personal preferences not taken into account) appears for 3 of 5 business segments."
+      - "WOW Initiative #1 ('A warm guest interaction') names feeling seen as the primary design intent."
+      - "WOW Initiative #4: 'As a guest when I interact with Scandic, both physical and digital, Scandic knows who I am and what I need.'"
+      - "Gain G6: 'Adapt communication and action based on purpose of stay.'"
+
+  - id: 4
+    title: "Breakfast as the Memory Anchor"
+    icon: "🥐"
+    primary_stage: 5
+    adjacent_stages: [6]
+    criteria_score: "5/5"
+    feasibility_note: null
+    customer_promise: >
+      The customer will experience a breakfast that exceeds their expectation in at least one
+      specific, memorable way — turning a routine meal into a positive story they carry away from the hotel.
+    customer_value:
+      - "'Breakfast is one of the most important things when choosing a hotel' [XENA persona Monica] and 'the most important meal at the hotel' for leisure guests."
+      - "Breakfast-related pains (queuing, running out of food, early closing) are the highest-severity free-text pain category in leisure (combined score 12.74 in Gavagai analysis)."
+    business_value:
+      - "Restaurant experience rated 3.7 in leisure — joint-lowest touchpoint — but gain point G9 ('Surprisingly good breakfast') suggests a low-cost, high-impact improvement path."
+      - "Memory research supports breakfast as a 'peak' moment in short stays; improving it raises overall NPS disproportionately."
+    what_great_looks_like:
+      - "A guest encounters at least one unexpected, sensory element at breakfast — freshly baked waffles, a staff member offering to cook their eggs, a genuine local product — that they photograph or mention to someone that day."
+      - "A family with children finds the breakfast station visually designed to engage children: appropriate height, fun presentation, something small but memorable for kids."
+    failure_modes:
+      - "Breakfast quality is highly variable by hotel and season — temporary or undertrained staff produce the worst complaints."
+      - "Scaling a 'surprising' element is hard: what surprises guests the first time becomes expected the second time, requiring ongoing menu/concept investment."
+    key_evidence:
+      - "G9 ('Surprisingly good breakfast'): better OJ, real scrambled eggs, egg cooked to order, waffles, coffee refill offered proactively."
+      - "Breakfast closing too early (E11) is a specific pain; hotels with later closing hours receive notably better ratings."
+      - "XENA persona Monica: 'Breakfast is one of the most important things when choosing a hotel.'"
+      - "Breakfast ranked highest-severity in pain frequency analysis."
+
+  - id: 5
+    title: "The Loyalty Loop That Brings You Back"
+    icon: "🔄"
+    primary_stage: 7
+    adjacent_stages: [2, 6]
+    criteria_score: "5/5"
+    feasibility_note: "programme-limited"
+    customer_promise: >
+      The customer will receive post-stay communication and loyalty recognition that feels
+      genuinely relevant, easy to act on, and that makes them more likely to choose Scandic
+      for their next trip — not less.
+    customer_value:
+      - "Post-stay communication is the lowest-rated touchpoint in the business journey (3.7) — a consistent drag on overall satisfaction for the guests Scandic most needs to keep."
+      - "Existing loyal members (Habituals, Scandic Friends) are currently the least satisfied segment; the loyalty programme is experienced as a downgrade from the previous programme."
+    business_value:
+      - "The Habitual segment (~10% of business guests) travels weekly and is worth disproportionate revenue; their 4.13 score is the lowest of all business segments, driven largely by member benefits (3.3)."
+      - "Improving post-stay relevance and loyalty programme usability addresses both retention and re-acquisition — the two highest-priority business objectives from 2017."
+    what_great_looks_like:
+      - "A guest who rated their stay 4/5 receives a single, personalised post-stay message within 24 hours that references their specific stay, shows their new points balance, and offers one genuinely relevant forward offer — not a newsletter."
+      - "A Scandic Friends member can see, in one screen, exactly how many points they have, what they can redeem them for, and what their fastest path to a free night is."
+    failure_modes:
+      - "The current technology stack (multiple legacy systems: MAP, Ariane, Scorpio, SGS) makes truly personalised post-stay communication difficult without significant integration work."
+      - "The loyalty programme's complexity means improving communication around a structurally flawed programme may not be enough — the programme itself may need to be simplified first."
+    key_evidence:
+      - "Post-stay comms rated 3.7 with high correlation to overall satisfaction."
+      - "Scandic Friends disappointments (F3, F4): programme complexity, point registration failures, cumbersome login."
+      - "'Too much and/or irrelevant post-stay communication' is pain F1, appearing for Habituals and Confirmation Seekers."
+      - "Gain G13 ('Better Scandic Friends') and G11 ('Don't ask for Tripadvisor review unless NPS high') both target this moment."
+
+# ─── SUCCESS SCORECARDS ───────────────────────────────────────────────────────
+scorecards:
+  - hero_moment_id: 1
+    measurement_gaps: "Add-on attach rate not tracked at segment level. OTA-originated booking satisfaction is largely invisible without post-stay survey linkage."
+    metrics:
+      - type: "Lagging outcome"
+        metric: "Booking conversion rate from hotel detail page to confirmed reservation"
+        source: "Web analytics (Adobe/GA)"
+        cadence: "Monthly"
+        owner: "Digital / E-commerce Lead"
+      - type: "Leading indicator 1"
+        metric: "Booking funnel drop-off rate at personal-details step"
+        source: "Web analytics"
+        cadence: "Weekly"
+        owner: "Digital / E-commerce Lead"
+      - type: "Leading indicator 2"
+        metric: "Booking funnel drop-off rate at payment step"
+        source: "Web analytics"
+        cadence: "Weekly"
+        owner: "Digital / E-commerce Lead"
+      - type: "Leading indicator 3"
+        metric: "Guest satisfaction score for 'Booking' touchpoint"
+        source: "SGS / NPS survey"
+        cadence: "Monthly"
+        owner: "CX Analytics"
+      - type: "Leading indicator 4"
+        metric: "% of bookings with at least one preference/add-on selected"
+        source: "Reservation system (Opera/Scorpio)"
+        cadence: "Monthly"
+        owner: "Revenue Management"
+      - type: "Operational health"
+        metric: "% of confirmed bookings where confirmation email is received within 10 mins"
+        source: "Email delivery platform"
+        cadence: "Weekly"
+        owner: "CRM/Martech"
+
+  - hero_moment_id: 2
+    measurement_gaps: "Wait time data is not systematically captured at most properties (Hypothesis). Name recognition rate for loyal members is not currently measured."
+    metrics:
+      - type: "Lagging outcome"
+        metric: "Guest satisfaction score for 'Arrival & Check-In' touchpoint"
+        source: "SGS / NPS survey"
+        cadence: "Monthly"
+        owner: "Hotel Operations"
+      - type: "Leading indicator 1"
+        metric: "Average check-in queue wait time (peak hours)"
+        source: "Property operations report / mystery guest"
+        cadence: "Monthly"
+        owner: "Hotel General Manager"
+      - type: "Leading indicator 2"
+        metric: "% of guests using mobile/digital check-in"
+        source: "Ariane / mobile key platform"
+        cadence: "Weekly"
+        owner: "Digital Operations"
+      - type: "Leading indicator 3"
+        metric: "% of loyal members (Top Floor+) acknowledged by name at check-in"
+        source: "Mystery guest audit / staff observation"
+        cadence: "Quarterly"
+        owner: "CX / Brand"
+      - type: "Operational health"
+        metric: "% of key cards functioning on first use"
+        source: "Front desk incident log"
+        cadence: "Monthly"
+        owner: "Hotel Operations"
+
+  - hero_moment_id: 3
+    measurement_gaps: "Personalisation execution at property level is unknown. CRM system is cited as needed infrastructure — data may not yet exist."
+    metrics:
+      - type: "Lagging outcome"
+        metric: "Member benefits satisfaction score (SGS)"
+        source: "SGS / NPS survey"
+        cadence: "Quarterly"
+        owner: "Loyalty Programme Manager"
+      - type: "Leading indicator 1"
+        metric: "% of stays where guest profile preferences are pre-loaded and visible to front-line staff"
+        source: "CRM / Opera Cloud"
+        cadence: "Monthly"
+        owner: "CRM Manager"
+      - type: "Leading indicator 2"
+        metric: "% of Top Floor / Gold members receiving a personalised in-stay message or gesture"
+        source: "CRM campaign system"
+        cadence: "Monthly"
+        owner: "CRM Manager"
+      - type: "Leading indicator 3"
+        metric: "'Staff made me feel personally welcomed' score (survey item)"
+        source: "SGS"
+        cadence: "Monthly"
+        owner: "Hotel Operations"
+      - type: "Operational health"
+        metric: "CRM data completeness rate (% of members with at least 3 preference fields populated)"
+        source: "Salesforce / CRM platform"
+        cadence: "Quarterly"
+        owner: "CRM Manager"
+
+  - hero_moment_id: 4
+    measurement_gaps: "Stock-out tracking may be manual or non-existent. 'Surprising element' is not currently a measurable standard — requires a brand definition first."
+    metrics:
+      - type: "Lagging outcome"
+        metric: "Guest satisfaction score for 'Restaurant & Breakfast' touchpoint"
+        source: "SGS / NPS survey"
+        cadence: "Monthly"
+        owner: "F&B Director"
+      - type: "Leading indicator 1"
+        metric: "% of breakfast sittings with zero stock-outs of core items (OJ, eggs, bread)"
+        source: "F&B operations report"
+        cadence: "Weekly"
+        owner: "Hotel F&B Manager"
+      - type: "Leading indicator 2"
+        metric: "Breakfast wait time (time from seating to first serve)"
+        source: "Operations report / mystery guest"
+        cadence: "Monthly"
+        owner: "Hotel F&B Manager"
+      - type: "Leading indicator 3"
+        metric: "% of hotels offering at least one 'surprising' or locally inspired breakfast element"
+        source: "Brand/ops audit"
+        cadence: "Quarterly"
+        owner: "CX / Brand"
+      - type: "Operational health"
+        metric: "Breakfast audit score (cleanliness, replenishment, staff warmth)"
+        source: "Internal/external audit"
+        cadence: "Monthly"
+        owner: "Hotel General Manager"
+
+  - hero_moment_id: 5
+    measurement_gaps: "Repeat booking rate by segment is unknown. Post-stay communication relevance is qualitative. Loyalty programme usability (login success, point redemption rate) is unknown."
+    metrics:
+      - type: "Lagging outcome"
+        metric: "Share of guests who return within 12 months (repeat booking rate)"
+        source: "Reservation system"
+        cadence: "Quarterly"
+        owner: "Loyalty Programme Manager"
+      - type: "Leading indicator 1"
+        metric: "Post-stay email open rate and click-through rate (by segment)"
+        source: "Email/MAP platform"
+        cadence: "Monthly"
+        owner: "CRM Manager"
+      - type: "Leading indicator 2"
+        metric: "Post-stay comms satisfaction score"
+        source: "SGS / NPS survey"
+        cadence: "Monthly"
+        owner: "CX Analytics"
+      - type: "Leading indicator 3"
+        metric: "Scandic Friends member satisfaction score"
+        source: "SGS / NPS survey"
+        cadence: "Quarterly"
+        owner: "Loyalty Programme Manager"
+      - type: "Operational health"
+        metric: "% of post-stay emails delivered within 48 hours of checkout"
+        source: "Email delivery platform"
+        cadence: "Weekly"
+        owner: "CRM/Martech"
+
+# ─── GAPS & OPEN QUESTIONS ────────────────────────────────────────────────────
+workshop_gaps:
+  - id: 1
+    title: "Segment scope"
+    detail: "Are business and leisure journeys distinct enough to require separate frameworks, or does the unified 7-stage model work for both? Are there newer segments not present (e.g., remote workers, bleisure travellers)?"
+  - id: 2
+    title: "What's changed since 2023"
+    detail: "The WOW Initiatives (Flexible Check-ins, Marketplace Lobby, Personalised Experience, Ancillaries) were defined in April 2023 — which have been implemented, and what has been learned?"
+  - id: 3
+    title: "CRM / data infrastructure state"
+    detail: "Hero Moments 3 and 5 are partially dependent on guest data being actionable at property level. What is the current state of Salesforce Service Cloud and EasyGuest deployments?"
+  - id: 4
+    title: "Member benefits programme"
+    detail: "Scandic Friends dissatisfaction is documented as far back as 2018. Has the programme been restructured since? If structurally poor, HM5 requires programme redesign, not just communication improvement."
+  - id: 5
+    title: "Breakfast consistency baseline"
+    detail: "No quantitative cross-hotel breakfast quality baseline exists. Before designing HM4 interventions, a clear current-state measurement is needed."
+  - id: 6
+    title: "Post-stay comms performance data"
+    detail: "Open rates, click-through rates, and segment-level performance of post-stay email communications are not referenced. This gap must be closed before building HM5 improvements."
+  - id: 7
+    title: "Pain severity is leisure-only"
+    detail: "The Gavagai quantification of pain severity covers leisure guests only. An equivalent prioritisation for business pains has not been quantified with the same method."
+  - id: 8
+    title: "Hero moment ownership"
+    detail: "Who in the organisation owns each hero moment end-to-end? Each hero moment spans multiple functions (IT, F&B, Front Desk, CRM, Brand); clear cross-silo owners need to be confirmed in the workshop."
