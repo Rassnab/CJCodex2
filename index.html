@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Scandic Strategic Customer Journey Framework</title>
+  <meta name="cjm-revision" content="2026-02-24-2" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -318,7 +320,6 @@
       display: inline-block;
     }
 
-    .metric-note { font-size: 12px; color: var(--text-muted); }
     .metric-row {
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -340,36 +341,6 @@
     .m-name { font-weight: 700; line-height: 1.3; }
     .m-meta { color: var(--text-muted); font-size: 11px; margin-top: 3px; }
 
-    .gap-box {
-      border-left: 3px solid var(--gap-orange);
-      background: #FFF5F0;
-      border-radius: 6px;
-      padding: 10px;
-      font-size: 13px;
-      color: #8a3f1f;
-      margin-bottom: 8px;
-    }
-
-    .q-card {
-      border-left: 3px solid var(--brand-primary);
-      background: #F7F5FA;
-      border-radius: 6px;
-      padding: 10px;
-      margin-bottom: 8px;
-    }
-    .q-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-    .q-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.35; }
-    .open-badge {
-      display: inline-block;
-      margin-top: 6px;
-      background: #ffe8d7;
-      color: #9f4d1f;
-      border-radius: 999px;
-      padding: 2px 8px;
-      font-size: 10px;
-      font-weight: 700;
-    }
-
     .flash { animation: hmflash 1.2s ease; }
     @keyframes hmflash {
       0% { box-shadow: 0 0 0 0 rgba(201, 134, 10, 0.0); }
@@ -386,7 +357,7 @@
       .journey-map { width: calc(var(--label-width) + (7 * var(--col-width))); }
       .row-stage .stage-cell, .row-stage .label-cell, .label-cell { position: static; }
       .stage-cell, .label-cell { box-shadow: none !important; background: #fff !important; }
-      .inset-box, .success, .gap-box, .q-card { background: #fff !important; }
+      .inset-box, .success { background: #fff !important; }
       details { display: block; }
       details > * { display: block !important; }
       details > summary { list-style: none; }
@@ -421,32 +392,48 @@
       'Stage is complete when…',
       '✓ Success looks like',
       'What we must deliver',
-      '⭐ Hero Moment',
-      '📊 How we measure',
-      '⚠ Measurement gaps',
-      '🔍 Workshop questions'
+      '⭐ Hero Moment'
     ];
-
-    const GAP_STAGE_MAP = {
-      1: 1,
-      2: 2,
-      3: 5,
-      4: 7,
-      5: 5,
-      6: 7,
-      7: 1,
-      8: 4
-    };
 
     const text = (v) => (v === null || v === undefined || v === '' ? '—' : String(v));
     const arr = (v) => Array.isArray(v) ? v : (v ? [v] : []);
 
+    const firstValue = (obj, keys = []) => {
+      if (!obj) return null;
+      for (const k of keys) {
+        if (obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return obj[k];
+      }
+      return null;
+    };
+
+    const stageTitle = (stage) => {
+      const value = firstValue(stage, [
+        'label', 'name', 'stage_name', 'stage_label', 'title', 'journey_stage', 'stage'
+      ]);
+      if (!value) return '—';
+      return String(value).replace(/^\s*\d+\s*[—:-]\s*/, '').trim() || '—';
+    };
+
+    const scorecardFor = (heroMoment) => {
+      if (!heroMoment) return null;
+      return firstValue(heroMoment, [
+        'scorecard', 'success_scorecards', 'SUCCESS SCORECARDS', 'successScorecards'
+      ]);
+    };
+
     function metricRow(metric, typeClass, typeLabel, prefix='') {
       if (!metric) return '';
-      const name = text(metric.metric || metric.name);
-      const src = text(metric.source || metric.data_source);
-      const cadence = text(metric.cadence);
-      const owner = text(metric.owner);
+      if (typeof metric === 'string') {
+        return `<div class="metric-row ${typeClass}">
+          <div class="m-type">${typeLabel}</div>
+          <div class="m-name">${prefix}${text(metric)}</div>
+          <div class="m-meta">— · — · —</div>
+        </div>`;
+      }
+      const name = text(firstValue(metric, ['metric', 'name', 'metric_name', 'title']));
+      const src = text(firstValue(metric, ['source', 'data_source', 'system', 'dataset']));
+      const cadence = text(firstValue(metric, ['cadence', 'frequency']));
+      const owner = text(firstValue(metric, ['owner', 'team']));
       return `<div class="metric-row ${typeClass}">
         <div class="m-type">${typeLabel}</div>
         <div class="m-name">${prefix}${name}</div>
@@ -492,8 +479,6 @@
       const map = document.getElementById('journeyMap');
       const stages = (data && data.stages) || [];
       const heroMoments = (data && data.hero_moments) || [];
-      const workshopGaps = (data && data.workshop_gaps) || [];
-
       document.getElementById('whereToWin').textContent = text(data?.meta?.where_to_win_theme);
 
       buildNav(heroMoments, stages, 'heroNav');
@@ -504,7 +489,7 @@
       rows.push(createRow(LABELS[0], 'row-stage', stages.map((s, i) => stageCell(`
         <div class="stage-head stage-col-${i + 1}">
           <div class="stage-num">${i + 1}</div>
-          <div class="stage-title">${text(s.label || s.name || s.stage)}</div>
+          <div class="stage-title">${stageTitle(s)}</div>
         </div>`, i))));
 
       rows.push(createRow(LABELS[1], '', stages.map((s, i) => stageCell(`<div class="quote">${text(s.customer_language)}</div>`, i))));
@@ -528,6 +513,11 @@
           const businessValue = arr(primary.business_value).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
           const great = arr(primary.what_great_looks_like).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
           const evidence = arr(primary.key_evidence).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
+          const scorecard = scorecardFor(primary);
+          const lagging = scorecard ? metricRow(firstValue(scorecard, ['lagging_outcome', 'LAGGING OUTCOME']), 'lagging', 'Lagging outcome') : '';
+          const leading = scorecard ? arr(firstValue(scorecard, ['leading_indicators', 'LEADING INDICATORS'])).map(l => metricRow(l, '', 'Leading indicator', 'L→ ')).join('') : '';
+          const health = scorecard ? metricRow(firstValue(scorecard, ['operational_health', 'OPERATIONAL HEALTH']), 'health', 'Operational health') : '';
+          const measureRows = (lagging + leading + health) || '<div class="metric-row">—</div>';
           return stageCell(`<article class="hero-card" id="hm-${primary.id || stageNum}">
             <div class="hero-head">
               <span>⭐ HM${text(primary.id || stageNum)}: ${text(primary.title)}</span>
@@ -548,48 +538,16 @@
               <summary>📎 Evidence</summary>
               <ul>${evidence}</ul>
             </details>
+            <details>
+              <summary>📊 How we measure</summary>
+              ${measureRows}
+            </details>
           </article>`, i);
         }
         if (adjacent) {
           return stageCell(`<span class="adjacent-pill">↔ Adjacent to HM${text(adjacent.id)}: ${text(adjacent.title)}</span>`, i);
         }
         return stageCell('', i, 'hero-empty');
-      })));
-
-      rows.push(createRow(LABELS[6], '', stages.map((s, i) => {
-        const stageNum = i + 1;
-        const primary = heroMoments.find(h => Number(h.primary_stage) === stageNum);
-        if (!primary || !primary.scorecard) {
-          return stageCell('<div class="metric-note">No dedicated hero moment — measure via overall SGS score.</div>', i);
-        }
-        const sc = primary.scorecard;
-        const leading = arr(sc.leading_indicators).map(l => metricRow(l, '', 'Leading indicator', 'L→ ')).join('');
-        return stageCell(
-          metricRow(sc.lagging_outcome, 'lagging', 'Lagging outcome') +
-          leading +
-          metricRow(sc.operational_health, 'health', 'Operational health'),
-          i
-        );
-      })));
-
-      rows.push(createRow(LABELS[7], '', stages.map((s, i) => {
-        const stageNum = i + 1;
-        const primary = heroMoments.find(h => Number(h.primary_stage) === stageNum);
-        const gaps = primary?.scorecard?.measurement_gaps;
-        if (!gaps) return stageCell('', i, 'hero-empty');
-        return stageCell(arr(gaps).map(g => `<div class="gap-box">⚠ ${text(g)}</div>`).join(''), i);
-      })));
-
-      rows.push(createRow(LABELS[8], '', stages.map((s, i) => {
-        const stageNum = i + 1;
-        const mapped = workshopGaps.filter(g => Number(GAP_STAGE_MAP[g.id]) === stageNum);
-        if (!mapped.length) return stageCell('', i, 'hero-empty');
-        const cards = mapped.map(g => `<article class="q-card">
-          <div class="q-title">${text(g.title || g.gap || `Gap ${g.id}`)}</div>
-          <div class="q-detail">${text(g.detail || g.question || g.description)}</div>
-          <span class="open-badge">Open</span>
-        </article>`).join('');
-        return stageCell(cards, i);
       })));
 
       map.innerHTML = rows.join('');
