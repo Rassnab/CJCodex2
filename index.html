@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scandic Strategic Customer Journey Framework</title>
+  <meta name="cjm-revision" content="2026-02-24-2" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #F5F4F2;
+      --bg-canvas: #FFFFFF;
+      --brand-primary: #8B1A4A;
+      --brand-accent: #C9326A;
+      --text-primary: #1A1A1A;
+      --text-secondary: #5A5A6A;
+      --text-muted: #9A9AA8;
+      --border: #E4E0E8;
+      --hm-amber: #C9860A;
+      --gap-orange: #E05A2B;
+      --success-green: #2A7A4B;
+      --col-width: 320px;
+      --label-width: 180px;
+      --row-padding: 16px;
+      --sticky-bar-height: 48px;
+      --radius: 10px;
+      --tag-radius: 6px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-page);
+    }
+
+    .page-header {
+      padding: 28px 24px 20px;
+      background: var(--bg-page);
+    }
+    .page-header h1 {
+      margin: 0;
+      font-size: clamp(24px, 2.7vw, 34px);
+      font-weight: 800;
+    }
+    .subtitle {
+      margin: 8px 0 18px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+    .where-to-win {
+      border-left: 5px solid var(--brand-primary);
+      background: #FDF6F9;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    .hm-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .hm-pill {
+      border: 1px solid #E5CF99;
+      background: #FFFBF0;
+      color: #6d4b06;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .16s ease;
+    }
+    .hm-pill:hover, .hm-pill:focus-visible {
+      background: #ffe8ba;
+      border-color: #e0b05f;
+      outline: none;
+    }
+
+    .sticky-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      height: var(--sticky-bar-height);
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 16px;
+      box-shadow: 0 2px 12px rgba(18, 16, 21, .06);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-8px);
+      transition: .2s ease;
+    }
+    .sticky-topbar.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .wordmark { font-weight: 800; color: var(--brand-primary); }
+
+    .canvas-shell { position: relative; }
+    .scroll-indicator {
+      position: fixed;
+      right: 8px;
+      top: 52%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      pointer-events: none;
+      transition: opacity .3s ease;
+      z-index: 180;
+    }
+    .scroll-indicator.hidden { opacity: 0; }
+
+    .scroll-wrap {
+      overflow-x: auto;
+      background: var(--bg-canvas);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      scrollbar-width: thin;
+      scrollbar-color: #bcb2c7 #f1edf4;
+    }
+    .scroll-wrap::-webkit-scrollbar { height: 10px; }
+    .scroll-wrap::-webkit-scrollbar-track { background: #f1edf4; }
+    .scroll-wrap::-webkit-scrollbar-thumb { background: #bcb2c7; border-radius: 10px; }
+
+    .journey-map {
+      width: calc(var(--label-width) + (7 * var(--col-width)));
+      min-height: 80vh;
+    }
+
+    .row {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .label-cell {
+      position: sticky;
+      left: 0;
+      width: var(--label-width);
+      min-width: var(--label-width);
+      background: #F5F4F2;
+      border-right: 1px solid var(--border);
+      padding: var(--row-padding);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      z-index: 55;
+    }
+
+    .stage-cell {
+      width: var(--col-width);
+      min-width: var(--col-width);
+      border-right: 1px solid var(--border);
+      padding: var(--row-padding);
+      background: #fff;
+      position: relative;
+    }
+    .stage-cell.alt { background: #FAFAFA; }
+
+    .row-stage .stage-cell {
+      background: var(--brand-primary);
+      color: #fff;
+      position: sticky;
+      top: var(--sticky-bar-height);
+      z-index: 120;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    .row-stage .label-cell {
+      position: sticky;
+      left: 0;
+      top: var(--sticky-bar-height);
+      z-index: 130;
+      background: #ece7ee;
+    }
+
+    .stage-head { display: flex; align-items: center; gap: 10px; }
+    .stage-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #fff; color: var(--brand-primary);
+      display: grid; place-items: center; font-weight: 800;
+      flex: 0 0 auto;
+    }
+    .stage-title { font-weight: 700; }
+
+    .quote {
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.35;
+      background: #FFF8F0;
+      min-height: 64px;
+      border-radius: 6px;
+      padding: 12px;
+    }
+
+    .inset-box {
+      background: #F0EEF5;
+      border-left: 3px solid var(--brand-primary);
+      border-radius: 6px;
+      color: #5A5A6A;
+      font-size: 13px;
+      padding: 10px;
+      line-height: 1.4;
+    }
+
+    .success {
+      border-left: 3px solid var(--success-green);
+      background: #F0FAF4;
+      color: var(--success-green);
+      font-size: 14px;
+      font-weight: 600;
+      min-height: 64px;
+      border-radius: 6px;
+      padding: 10px;
+      line-height: 1.4;
+    }
+
+    .outcomes-list { margin: 0; padding: 0; list-style: none; }
+    .outcomes-list li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 8px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+    .outcomes-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--brand-primary);
+      position: absolute;
+      top: .48em; left: 0;
+    }
+    .evidence-foot {
+      border-top: 1px solid var(--border);
+      margin-top: 12px;
+      padding-top: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-style: italic;
+      line-height: 1.35;
+    }
+
+    .hero-empty { background: transparent !important; }
+    .hero-card {
+      border: 1px solid #e6c274;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fffdf7;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-head {
+      background: var(--hm-amber);
+      color: #fff;
+      padding: 9px 10px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .warn-pill {
+      background: rgba(255,255,255,.2);
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 999px;
+      padding: 2px 6px;
+      font-size: 10px;
+    }
+    .hero-body { padding: 10px; font-size: 13px; }
+    .promise { font-style: italic; margin-bottom: 10px; font-size: 14px; }
+    .mini-label {
+      font-size: 10px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin: 8px 0 4px;
+    }
+    .hero-body ul, .hero-body ol { margin: 6px 0 8px 18px; padding: 0; }
+    .hero-body li { margin-bottom: 4px; }
+    .divider { border: 0; border-top: 1px solid var(--border); margin: 8px 0; }
+    .failure {
+      background: #FFF0ED;
+      border-top: 1px solid #ffd7cc;
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #8b3c25;
+      margin-top: auto;
+    }
+    details { margin: 8px 10px 10px; font-size: 12px; color: var(--text-muted); }
+    details > summary { cursor: pointer; font-weight: 600; }
+
+    .adjacent-pill {
+      background: #FFFBF0;
+      border: 1px dashed #E3BE6D;
+      color: #7c5a12;
+      border-radius: 999px;
+      font-size: 12px;
+      padding: 8px 10px;
+      display: inline-block;
+    }
+
+    .metric-row {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 8px;
+      background: #fff;
+      font-size: 12px;
+    }
+    .metric-row.lagging { background: #F0FAF4; border-color: #cfe9d9; }
+    .metric-row.health { background: #F1F8FF; border-color: #cde4fb; }
+    .m-type {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+      letter-spacing: .03em;
+    }
+    .m-name { font-weight: 700; line-height: 1.3; }
+    .m-meta { color: var(--text-muted); font-size: 11px; margin-top: 3px; }
+
+    .flash { animation: hmflash 1.2s ease; }
+    @keyframes hmflash {
+      0% { box-shadow: 0 0 0 0 rgba(201, 134, 10, 0.0); }
+      35% { box-shadow: 0 0 0 6px rgba(201, 134, 10, 0.45); }
+      100% { box-shadow: 0 0 0 0 rgba(201, 134, 10, 0.0); }
+    }
+
+    @media print {
+      @page { size: A3 landscape; margin: 10mm; }
+      :root { --sticky-bar-height: 0px; }
+      body { background: #fff; font-size: 11pt; }
+      .sticky-topbar, .scroll-indicator { display: none !important; }
+      .scroll-wrap { overflow: visible; }
+      .journey-map { width: calc(var(--label-width) + (7 * var(--col-width))); }
+      .row-stage .stage-cell, .row-stage .label-cell, .label-cell { position: static; }
+      .stage-cell, .label-cell { box-shadow: none !important; background: #fff !important; }
+      .inset-box, .success { background: #fff !important; }
+      details { display: block; }
+      details > * { display: block !important; }
+      details > summary { list-style: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header" id="pageHeader">
+    <h1>Scandic Hotels — Strategic Customer Journey Framework</h1>
+    <div class="subtitle">Workshop Draft · February 2026</div>
+    <div class="where-to-win" id="whereToWin">—</div>
+    <nav class="hm-nav" id="heroNav"></nav>
+  </header>
+
+  <div class="sticky-topbar" id="stickyTopbar">
+    <div class="wordmark">Scandic CJM</div>
+    <nav class="hm-nav" id="heroNavCompact"></nav>
+  </div>
+
+  <main class="canvas-shell">
+    <div class="scroll-indicator" id="scrollIndicator">scroll →</div>
+    <div class="scroll-wrap" id="scrollWrap">
+      <section class="journey-map" id="journeyMap"></section>
+    </div>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+  <script>
+    const LABELS = [
+      'Stage',
+      'The customer says…',
+      'Stage is complete when…',
+      '✓ Success looks like',
+      'What we must deliver',
+      '⭐ Hero Moment'
+    ];
+
+    const text = (v) => (v === null || v === undefined || v === '' ? '—' : String(v));
+    const arr = (v) => Array.isArray(v) ? v : (v ? [v] : []);
+
+    const normalizedKey = (value) => String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+    const firstValue = (obj, keys = []) => {
+      if (!obj) return null;
+      for (const k of keys) {
+        if (obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return obj[k];
+      }
+      const entries = Object.entries(obj);
+      for (const k of keys) {
+        const nk = normalizedKey(k);
+        const found = entries.find(([key, value]) => normalizedKey(key) === nk && value !== undefined && value !== null && value !== '');
+        if (found) return found[1];
+      }
+      return null;
+    };
+
+    const stageTitle = (stage) => {
+      const value = firstValue(stage, [
+        'label', 'name', 'stage_name', 'stage_label', 'title', 'journey_stage', 'stage'
+      ]);
+      if (!value) return '—';
+      return String(value).replace(/^\s*\d+\s*[—:-]\s*/, '').trim() || '—';
+    };
+
+    const normalizeScorecard = (rawScorecard) => {
+      if (!rawScorecard) return null;
+      const scorecard = firstValue(rawScorecard, ['scorecard', 'metrics', 'data']) || rawScorecard;
+
+      if (Array.isArray(scorecard)) {
+        const typed = scorecard.filter(Boolean);
+        const laggingEntry = typed.find((m) => normalizedKey(firstValue(m, ['type', 'metric_type', 'category'])).includes('lagging'));
+        const leadingEntries = typed.filter((m) => normalizedKey(firstValue(m, ['type', 'metric_type', 'category'])).includes('leading'));
+        const healthEntry = typed.find((m) => {
+          const kind = normalizedKey(firstValue(m, ['type', 'metric_type', 'category']));
+          return kind.includes('operational') || kind.includes('health');
+        });
+        return {
+          lagging_outcome: laggingEntry || null,
+          leading_indicators: leadingEntries,
+          operational_health: healthEntry || null
+        };
+      }
+
+      const lagging = firstValue(scorecard, ['lagging_outcome', 'LAGGING OUTCOME', 'lagging outcome']);
+      const leading = firstValue(scorecard, ['leading_indicators', 'LEADING INDICATORS', 'leading indicators']);
+      const health = firstValue(scorecard, ['operational_health', 'OPERATIONAL HEALTH', 'operational health']);
+
+      if (lagging || leading || health) {
+        return {
+          lagging_outcome: lagging || null,
+          leading_indicators: arr(leading),
+          operational_health: health || null
+        };
+      }
+
+      return null;
+    };
+
+    const buildScorecardLookup = (data) => {
+      const raw = firstValue(data, ['success_scorecards', 'SUCCESS SCORECARDS', 'successScorecards']);
+      const lookup = new Map();
+      const put = (key, value) => {
+        if (key === null || key === undefined || key === '') return;
+        lookup.set(String(key).toLowerCase(), normalizeScorecard(value));
+      };
+
+      if (Array.isArray(raw)) {
+        raw.forEach((entry) => {
+          const body = firstValue(entry, ['scorecard', 'metrics', 'data']) || entry;
+          const hmId = firstValue(entry, ['hero_moment_id', 'hero_moment', 'hm_id', 'id', 'hero_id', 'hero_moment_number', 'number']);
+          const stage = firstValue(entry, ['primary_stage', 'stage', 'stage_number']);
+          const title = firstValue(entry, ['title', 'hero_moment_title', 'hero_title', 'name']);
+          put(`id:${hmId}`, body);
+          put(`stage:${stage}`, body);
+          put(`title:${normalizedKey(title)}`, body);
+        });
+      } else if (raw && typeof raw === 'object') {
+        Object.entries(raw).forEach(([key, value]) => {
+          put(`key:${normalizedKey(key)}`, value);
+          const hmId = firstValue(value, ['hero_moment_id', 'hero_moment', 'hm_id', 'id', 'hero_id', 'hero_moment_number', 'number']);
+          const stage = firstValue(value, ['primary_stage', 'stage', 'stage_number']);
+          const title = firstValue(value, ['title', 'hero_moment_title', 'hero_title', 'name']);
+          put(`id:${hmId}`, value);
+          put(`stage:${stage}`, value);
+          put(`title:${normalizedKey(title)}`, value);
+        });
+      }
+
+      return lookup;
+    };
+
+    const scorecardFor = (heroMoment, scorecardLookup) => {
+      if (!heroMoment) return null;
+      const inline = firstValue(heroMoment, [
+        'scorecard', 'success_scorecards', 'SUCCESS SCORECARDS', 'successScorecards'
+      ]);
+      if (inline) return normalizeScorecard(inline);
+
+      const hmId = firstValue(heroMoment, ['id', 'hero_moment_id', 'hero_moment', 'hm_id']);
+      const stage = firstValue(heroMoment, ['primary_stage', 'stage']);
+      const title = normalizedKey(firstValue(heroMoment, ['title', 'name']));
+
+      return scorecardLookup.get(`id:${hmId}`) ||
+        scorecardLookup.get(`stage:${stage}`) ||
+        scorecardLookup.get(`title:${title}`) ||
+        scorecardLookup.get(`key:hm${hmId}`) ||
+        scorecardLookup.get(`key:${hmId}`) ||
+        null;
+    };
+
+    function metricRow(metric, typeClass, typeLabel, prefix='') {
+      if (!metric) return '';
+      if (typeof metric === 'string') {
+        return `<div class="metric-row ${typeClass}">
+          <div class="m-type">${typeLabel}</div>
+          <div class="m-name">${prefix}${text(metric)}</div>
+          <div class="m-meta">— · — · —</div>
+        </div>`;
+      }
+      const name = text(firstValue(metric, ['metric', 'name', 'metric_name', 'title']));
+      const src = text(firstValue(metric, ['source', 'data_source', 'system', 'dataset']));
+      const cadence = text(firstValue(metric, ['cadence', 'frequency']));
+      const owner = text(firstValue(metric, ['owner', 'team']));
+      return `<div class="metric-row ${typeClass}">
+        <div class="m-type">${typeLabel}</div>
+        <div class="m-name">${prefix}${name}</div>
+        <div class="m-meta">${src} · ${cadence} · ${owner}</div>
+      </div>`;
+    }
+
+    function createRow(label, rowClass, cellsHtml) {
+      return `<div class="row ${rowClass}">
+        <div class="label-cell">${label}</div>
+        ${cellsHtml.join('')}
+      </div>`;
+    }
+
+    function stageCell(content, i, extraClass='') {
+      return `<div class="stage-cell ${i % 2 === 1 ? 'alt' : ''} ${extraClass}">${content}</div>`;
+    }
+
+    function buildNav(heroMoments, stages, targetId) {
+      const nav = document.getElementById(targetId);
+      nav.innerHTML = '';
+      heroMoments.slice(0, 5).forEach((hm, idx) => {
+        const stageIdx = stages.findIndex((s, i) => i + 1 === Number(hm.primary_stage));
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'hm-pill';
+        btn.textContent = `⭐ HM${hm.id || idx + 1}: ${text(hm.title)}`;
+        btn.addEventListener('click', () => {
+          const col = document.querySelector(`.stage-col-${stageIdx + 1}`);
+          if (col) col.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+          const card = document.querySelector(`#hm-${hm.id || idx + 1}`);
+          if (card) {
+            card.classList.remove('flash');
+            void card.offsetWidth;
+            card.classList.add('flash');
+          }
+        });
+        nav.appendChild(btn);
+      });
+    }
+
+    function render(data) {
+      const map = document.getElementById('journeyMap');
+      const stages = (data && data.stages) || [];
+      const heroMoments = (data && data.hero_moments) || [];
+      const scorecardLookup = buildScorecardLookup(data || {});
+      document.getElementById('whereToWin').textContent = text(data?.meta?.where_to_win_theme);
+
+      buildNav(heroMoments, stages, 'heroNav');
+      buildNav(heroMoments, stages, 'heroNavCompact');
+
+      const rows = [];
+
+      rows.push(createRow(LABELS[0], 'row-stage', stages.map((s, i) => stageCell(`
+        <div class="stage-head stage-col-${i + 1}">
+          <div class="stage-num">${i + 1}</div>
+          <div class="stage-title">${stageTitle(s)}</div>
+        </div>`, i))));
+
+      rows.push(createRow(LABELS[1], '', stages.map((s, i) => stageCell(`<div class="quote">${text(s.customer_language)}</div>`, i))));
+
+      rows.push(createRow(LABELS[2], '', stages.map((s, i) => stageCell(`<div class="inset-box">${text(s.complete_when)}</div>`, i))));
+
+      rows.push(createRow(LABELS[3], '', stages.map((s, i) => stageCell(`<div class="success">✓ ${text(s.success_statement)}</div>`, i))));
+
+      rows.push(createRow(LABELS[4], '', stages.map((s, i) => {
+        const outcomes = arr(s.key_outcomes).map(item => `<li>${text(item)}</li>`).join('') || '<li>—</li>';
+        return stageCell(`<ul class="outcomes-list">${outcomes}</ul><div class="evidence-foot">${text(s.evidence)}</div>`, i);
+      })));
+
+      rows.push(createRow(LABELS[5], '', stages.map((s, i) => {
+        const stageNum = i + 1;
+        const primary = heroMoments.find(h => Number(h.primary_stage) === stageNum);
+        const adjacent = heroMoments.find(h => arr(h.adjacent_stages).map(Number).includes(stageNum));
+
+        if (primary) {
+          const customerValue = arr(primary.customer_value).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
+          const businessValue = arr(primary.business_value).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
+          const great = arr(primary.what_great_looks_like).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
+          const evidence = arr(primary.key_evidence).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
+          const scorecard = scorecardFor(primary, scorecardLookup);
+          const lagging = scorecard ? metricRow(firstValue(scorecard, ['lagging_outcome', 'LAGGING OUTCOME']), 'lagging', 'Lagging outcome') : '';
+          const leading = scorecard ? arr(firstValue(scorecard, ['leading_indicators', 'LEADING INDICATORS'])).map(l => metricRow(l, '', 'Leading indicator', 'L→ ')).join('') : '';
+          const health = scorecard ? metricRow(firstValue(scorecard, ['operational_health', 'OPERATIONAL HEALTH']), 'health', 'Operational health') : '';
+          const measureRows = (lagging + leading + health) || '<div class="metric-row">—</div>';
+          return stageCell(`<article class="hero-card" id="hm-${primary.id || stageNum}">
+            <div class="hero-head">
+              <span>⭐ HM${text(primary.id || stageNum)}: ${text(primary.title)}</span>
+              ${primary.feasibility_note ? `<span class="warn-pill">⚠ ${text(primary.feasibility_note)}</span>` : ''}
+            </div>
+            <div class="hero-body">
+              <div class="promise">${text(primary.customer_promise)}</div>
+              <div class="mini-label">Why it matters · Customer</div>
+              <ul>${customerValue}</ul>
+              <hr class="divider" />
+              <div class="mini-label">Why it matters · Business</div>
+              <ul>${businessValue}</ul>
+              <div class="mini-label">What great looks like</div>
+              <ol>${great}</ol>
+            </div>
+            <div class="failure">⚠ ${arr(primary.failure_modes).join(' · ') || '—'}</div>
+            <details>
+              <summary>📎 Evidence</summary>
+              <ul>${evidence}</ul>
+            </details>
+            <details>
+              <summary>📊 How we measure</summary>
+              ${measureRows}
+            </details>
+          </article>`, i);
+        }
+        if (adjacent) {
+          return stageCell(`<span class="adjacent-pill">↔ Adjacent to HM${text(adjacent.id)}: ${text(adjacent.title)}</span>`, i);
+        }
+        return stageCell('', i, 'hero-empty');
+      })));
+
+      map.innerHTML = rows.join('');
+    }
+
+    async function init() {
+      try {
+        const res = await fetch('scandic_framework.yaml');
+        if (!res.ok) throw new Error(`Failed to fetch scandic_framework.yaml (${res.status})`);
+        const yamlText = await res.text();
+        const data = window.jsyaml.load(yamlText) || {};
+        render(data);
+      } catch (err) {
+        document.getElementById('journeyMap').innerHTML = `<div style="padding:24px;color:#8b3c25;">Unable to load scandic_framework.yaml. ${text(err.message)}</div>`;
+      }
+
+      const header = document.getElementById('pageHeader');
+      const sticky = document.getElementById('stickyTopbar');
+      const observer = new IntersectionObserver(([entry]) => {
+        sticky.classList.toggle('visible', !entry.isIntersecting);
+      }, { threshold: 0.01 });
+      observer.observe(header);
+
+      const sw = document.getElementById('scrollWrap');
+      const indicator = document.getElementById('scrollIndicator');
+      const syncIndicator = () => {
+        indicator.classList.toggle('hidden', sw.scrollLeft > 40 || sw.scrollWidth <= sw.clientWidth + 10);
+      };
+      sw.addEventListener('scroll', syncIndicator, { passive: true });
+      window.addEventListener('resize', syncIndicator);
+      syncIndicator();
+
+      const opened = new Set();
+      window.addEventListener('beforeprint', () => {
+        document.querySelectorAll('details').forEach((d, idx) => {
+          if (d.open) opened.add(idx);
+          d.open = true;
+        });
+      });
+      window.addEventListener('afterprint', () => {
+        document.querySelectorAll('details').forEach((d, idx) => {
+          d.open = opened.has(idx);
+        });
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
