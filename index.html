@@ -398,10 +398,18 @@
     const text = (v) => (v === null || v === undefined || v === '' ? '—' : String(v));
     const arr = (v) => Array.isArray(v) ? v : (v ? [v] : []);
 
+    const normalizedKey = (value) => String(value || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
     const firstValue = (obj, keys = []) => {
       if (!obj) return null;
       for (const k of keys) {
         if (obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return obj[k];
+      }
+      const entries = Object.entries(obj);
+      for (const k of keys) {
+        const nk = normalizedKey(k);
+        const found = entries.find(([key, value]) => normalizedKey(key) === nk && value !== undefined && value !== null && value !== '');
+        if (found) return found[1];
       }
       return null;
     };
@@ -414,11 +422,90 @@
       return String(value).replace(/^\s*\d+\s*[—:-]\s*/, '').trim() || '—';
     };
 
-    const scorecardFor = (heroMoment) => {
+    const normalizeScorecard = (rawScorecard) => {
+      if (!rawScorecard) return null;
+      const scorecard = firstValue(rawScorecard, ['scorecard', 'metrics', 'data']) || rawScorecard;
+
+      if (Array.isArray(scorecard)) {
+        const typed = scorecard.filter(Boolean);
+        const laggingEntry = typed.find((m) => normalizedKey(firstValue(m, ['type', 'metric_type', 'category'])).includes('lagging'));
+        const leadingEntries = typed.filter((m) => normalizedKey(firstValue(m, ['type', 'metric_type', 'category'])).includes('leading'));
+        const healthEntry = typed.find((m) => {
+          const kind = normalizedKey(firstValue(m, ['type', 'metric_type', 'category']));
+          return kind.includes('operational') || kind.includes('health');
+        });
+        return {
+          lagging_outcome: laggingEntry || null,
+          leading_indicators: leadingEntries,
+          operational_health: healthEntry || null
+        };
+      }
+
+      const lagging = firstValue(scorecard, ['lagging_outcome', 'LAGGING OUTCOME', 'lagging outcome']);
+      const leading = firstValue(scorecard, ['leading_indicators', 'LEADING INDICATORS', 'leading indicators']);
+      const health = firstValue(scorecard, ['operational_health', 'OPERATIONAL HEALTH', 'operational health']);
+
+      if (lagging || leading || health) {
+        return {
+          lagging_outcome: lagging || null,
+          leading_indicators: arr(leading),
+          operational_health: health || null
+        };
+      }
+
+      return null;
+    };
+
+    const buildScorecardLookup = (data) => {
+      const raw = firstValue(data, ['success_scorecards', 'SUCCESS SCORECARDS', 'successScorecards']);
+      const lookup = new Map();
+      const put = (key, value) => {
+        if (key === null || key === undefined || key === '') return;
+        lookup.set(String(key).toLowerCase(), normalizeScorecard(value));
+      };
+
+      if (Array.isArray(raw)) {
+        raw.forEach((entry) => {
+          const body = firstValue(entry, ['scorecard', 'metrics', 'data']) || entry;
+          const hmId = firstValue(entry, ['hero_moment_id', 'hero_moment', 'hm_id', 'id', 'hero_id', 'hero_moment_number', 'number']);
+          const stage = firstValue(entry, ['primary_stage', 'stage', 'stage_number']);
+          const title = firstValue(entry, ['title', 'hero_moment_title', 'hero_title', 'name']);
+          put(`id:${hmId}`, body);
+          put(`stage:${stage}`, body);
+          put(`title:${normalizedKey(title)}`, body);
+        });
+      } else if (raw && typeof raw === 'object') {
+        Object.entries(raw).forEach(([key, value]) => {
+          put(`key:${normalizedKey(key)}`, value);
+          const hmId = firstValue(value, ['hero_moment_id', 'hero_moment', 'hm_id', 'id', 'hero_id', 'hero_moment_number', 'number']);
+          const stage = firstValue(value, ['primary_stage', 'stage', 'stage_number']);
+          const title = firstValue(value, ['title', 'hero_moment_title', 'hero_title', 'name']);
+          put(`id:${hmId}`, value);
+          put(`stage:${stage}`, value);
+          put(`title:${normalizedKey(title)}`, value);
+        });
+      }
+
+      return lookup;
+    };
+
+    const scorecardFor = (heroMoment, scorecardLookup) => {
       if (!heroMoment) return null;
-      return firstValue(heroMoment, [
+      const inline = firstValue(heroMoment, [
         'scorecard', 'success_scorecards', 'SUCCESS SCORECARDS', 'successScorecards'
       ]);
+      if (inline) return normalizeScorecard(inline);
+
+      const hmId = firstValue(heroMoment, ['id', 'hero_moment_id', 'hero_moment', 'hm_id']);
+      const stage = firstValue(heroMoment, ['primary_stage', 'stage']);
+      const title = normalizedKey(firstValue(heroMoment, ['title', 'name']));
+
+      return scorecardLookup.get(`id:${hmId}`) ||
+        scorecardLookup.get(`stage:${stage}`) ||
+        scorecardLookup.get(`title:${title}`) ||
+        scorecardLookup.get(`key:hm${hmId}`) ||
+        scorecardLookup.get(`key:${hmId}`) ||
+        null;
     };
 
     function metricRow(metric, typeClass, typeLabel, prefix='') {
@@ -479,6 +566,7 @@
       const map = document.getElementById('journeyMap');
       const stages = (data && data.stages) || [];
       const heroMoments = (data && data.hero_moments) || [];
+      const scorecardLookup = buildScorecardLookup(data || {});
       document.getElementById('whereToWin').textContent = text(data?.meta?.where_to_win_theme);
 
       buildNav(heroMoments, stages, 'heroNav');
@@ -513,7 +601,7 @@
           const businessValue = arr(primary.business_value).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
           const great = arr(primary.what_great_looks_like).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
           const evidence = arr(primary.key_evidence).map(v => `<li>${text(v)}</li>`).join('') || '<li>—</li>';
-          const scorecard = scorecardFor(primary);
+          const scorecard = scorecardFor(primary, scorecardLookup);
           const lagging = scorecard ? metricRow(firstValue(scorecard, ['lagging_outcome', 'LAGGING OUTCOME']), 'lagging', 'Lagging outcome') : '';
           const leading = scorecard ? arr(firstValue(scorecard, ['leading_indicators', 'LEADING INDICATORS'])).map(l => metricRow(l, '', 'Leading indicator', 'L→ ')).join('') : '';
           const health = scorecard ? metricRow(firstValue(scorecard, ['operational_health', 'OPERATIONAL HEALTH']), 'health', 'Operational health') : '';
